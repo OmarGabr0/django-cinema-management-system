@@ -61,5 +61,5 @@ htmlcov/
 
 # =====================
 # Django migrations (ONLY if you want fresh DB setup)
-# ⚠️ normally you DO NOT ignore migrations
+# normally NOT ignoring migrations
 # migrations/__pycache__/

@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'Movies',
+    'guests',
+    'reservations',
     'rest_framework',
 ]
 
@@ -56,7 +58,7 @@ ROOT_URLCONF = 'CinemaSystem.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'CinemaSystem/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
