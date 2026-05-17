@@ -79,8 +79,8 @@
                     <p class="card-text text-muted">Register new guests, update contact information, and manage client records.</p>
                 </div>
                 <div class="card-footer bg-white border-0 d-flex justify-content-center gap-2 pb-4">
-                    <a href="#" class="btn btn-outline-success">View Guests</a>
-                    <a href="#" class="btn btn-success">Add Guest</a>
+                    <a href="{% url 'guests:guests_list' %}" class="btn btn-outline-success">View Guests</a>
+                    <a href="{% url 'guests:add_guest' %}" class="btn btn-success">Add Guest</a>
                 </div>
             </div>
         </div>

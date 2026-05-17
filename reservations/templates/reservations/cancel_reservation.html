@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}Cancel Reservation - Cinema Management{% block title %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6 col-lg-5">
+        <div class="card border-0 shadow-sm border-top border-danger border-4 mt-5">
+            <div class="card-body p-4 text-center">
+                <div class="text-danger mb-3">
+                    <i class="bi bi-exclamation-triangle display-4"></i>
+                </div>
+                
+                <h4 class="fw-bold text-dark mb-2">Cancel Ticket Reservation?</h4>
+                <p class="text-muted mb-4 small">
+                    Are you sure you want to delete reservation <strong class="text-dark">#{{ reservation.reservation_id }}</strong>? 
+                    This will revoke admission access for <strong class="text-dark">{{ reservation.guest.name }}</strong> to watch 
+                    <strong class="text-primary">{{ reservation.movie.name }}</strong>.
+                </p>
+
+                <!-- Postback validation intercept form -->
+                <form method="POST" action="{% url 'reservations:cancel_reservation' reservation.reservation_id %}">
+                    {% csrf_token %}
+                    <div class="d-flex gap-2 justify-content-center">
+                        <a href="{% url 'reservations:reservations_list' %}" class="btn btn-light px-4">Back to List</a>
+                        <button type="submit" class="btn btn-danger px-4">Yes, Terminate Ticket</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Remove Guest Account - CinemaCMS</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+<!-- Navigation Bar (Consistent with System UI) -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" href="{% url 'home' %}">🎬 CinemaCMS</a>
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" href="#">Movies</a></li>
+                <li class="nav-item"><a class="nav-link active" href="{% url 'guests:guests_list' %}">Back to Registry</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Reservations</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Main Container -->
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-5">
+            
+            <!-- Warning Confirmation Card -->
+            <div class="card shadow-sm border-0 mt-4">
+                <div class="card-body p-4 text-center">
+                    
+                    <!-- Hazard/Warning SVG Icon -->
+                    <div class="text-danger mb-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="56" height="56" fill="currentColor" class="bi bi-person-x-fill" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm6.146-2.854a.5.5 0 0 1 .708 0L14 6.293l1.146-1.147a.5.5 0 0 1 .708.708L14.707 7l1.147 1.146a.5.5 0 0 1-.708.708L14 7.707l-1.146 1.147a.5.5 0 0 1-.708-.708L13.293 7l-1.147-1.146a.5.5 0 0 1 0-.708z"/>
+                        </svg>
+                    </div>
+                    
+                    <h4 class="fw-bold text-dark mb-2">Remove Guest Profile?</h4>
+                    <p class="text-muted mb-4">
+                        Are you sure you want to delete the record for <strong class="text-dark">{{ guest.name }}</strong> (<span class="small font-monospace">{{ guest.email }}</span>)? 
+                    </p>
+                    
+                    <!-- Alert Callout for Cascade Warnings -->
+                    <div class="alert alert-warning text-start small border-0 shadow-none mb-4" role="alert">
+                        ⚠️ <strong>Warning:</strong> Deleting this account will immediately remove all associated seat reservations and ticket records for this guest.
+                    </div>
+
+                    <!-- Deletion Form triggers secure POST request back to the FBV -->
+                    <form method="POST">
+                        {% csrf_token %}
+                        
+                        <div class="d-grid gap-2">
+                            <!-- Destructive Action Button -->
+                            <button type="submit" class="btn btn-danger btn-lg fw-semibold fs-6">
+                                Delete Profile Permanently
+                            </button>
+                            <!-- Safe Exit Route -->
+                            <a href="{% url 'guests:guests_list' %}" class="btn btn-outline-secondary">
+                                Cancel, Keep Record
+                            </a>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap 5 JS Bundle -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
