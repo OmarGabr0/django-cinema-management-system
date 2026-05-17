@@ -3,14 +3,11 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
-
-    <title>Edit Movie - CinemaCMS</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Movie - CinemaCMS</title>
 
     <!-- Bootstrap 5 CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-          rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
         body {
@@ -53,8 +50,7 @@
 
             </button>
 
-            <div class="collapse navbar-collapse"
-                 id="navbarNav">
+            <div class="collapse navbar-collapse" id="navbarNav">
 
                 <ul class="navbar-nav ms-auto">
 
@@ -95,8 +91,7 @@
             <div class="col-md-8 col-lg-6">
 
                 <!-- Breadcrumb -->
-                <nav aria-label="breadcrumb"
-                     class="mb-4">
+                <nav aria-label="breadcrumb" class="mb-4">
 
                     <ol class="breadcrumb">
 
@@ -114,7 +109,7 @@
                         <li class="breadcrumb-item active"
                             aria-current="page">
 
-                            Edit Movie
+                            Add Movie
 
                         </li>
 
@@ -122,7 +117,7 @@
 
                 </nav>
 
-                <!-- Edit Movie Card -->
+                <!-- Add Movie Card -->
                 <div class="card shadow-sm border-0">
 
                     <!-- Card Header -->
@@ -131,17 +126,17 @@
                         <div class="d-flex align-items-center">
 
                             <span class="fs-3 me-3">
-                                🎬
+                                🎥
                             </span>
 
                             <div>
 
                                 <h4 class="fw-bold mb-0">
-                                    Edit Movie
+                                    Add New Movie
                                 </h4>
 
                                 <small class="opacity-75">
-                                    Update movie screening information
+                                    Register a new screening in the cinema system
                                 </small>
 
                             </div>
@@ -153,7 +148,7 @@
                     <!-- Card Body -->
                     <div class="card-body p-4">
 
-                        <!-- Edit Form -->
+                        <!-- Movie Form -->
                         <form method="POST">
 
                             {% csrf_token %}
@@ -172,7 +167,7 @@
                                        class="form-control"
                                        id="name"
                                        name="name"
-                                       value="{{ movie.name }}"
+                                       placeholder="e.g. Interstellar"
                                        required>
 
                             </div>
@@ -191,7 +186,6 @@
                                        class="form-control"
                                        id="start_time"
                                        name="start_time"
-                                       value="{{ movie.start_time|date:'Y-m-d\\TH:i' }}"
                                        required>
 
                             </div>
@@ -210,13 +204,12 @@
                                        class="form-control"
                                        id="duration"
                                        name="duration"
-                                       value="{{ movie.duration }}"
                                        placeholder="02:30:00"
                                        pattern="^([0-1]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]$"
                                        required>
 
                                 <div class="form-text">
-                                    Enter duration in HH:MM:SS format
+                                    Enter movie duration in HH:MM:SS format
                                     (Example: 02:30:00)
                                 </div>
 
@@ -236,7 +229,7 @@
                                        class="form-control"
                                        id="hall_number"
                                        name="hall_number"
-                                       value="{{ movie.hall_number }}"
+                                       placeholder="e.g. 3"
                                        required>
 
                             </div>
@@ -256,7 +249,7 @@
                                        class="form-control"
                                        id="reservation_price"
                                        name="reservation_price"
-                                       value="{{ movie.reservation_price }}"
+                                       placeholder="e.g. 12.99"
                                        required>
 
                             </div>
@@ -276,7 +269,7 @@
                                 <button type="submit"
                                         class="btn btn-primary fw-semibold px-4">
 
-                                    Update Movie
+                                    Save Movie
 
                                 </button>
 

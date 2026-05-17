@@ -3,21 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register Guest - CinemaCMS</title>
+    <title>Edit Guest Profile - CinemaCMS</title>
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body class="bg-light">
 
-<!-- Navigation Bar (Consistent with System UI) -->
+<!-- Navigation Bar (Consistent with Rest of System) -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
         <a class="navbar-brand" href="{% url 'home' %}">🎬 CinemaCMS</a>
         <div class="collapse navbar-collapse">
             <ul class="navbar-nav ms-auto">
-                <li class="nav-item"><a class="nav-link" href="#">Movies</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'movies:movies_list' %}">Movies</a></li>
                 <li class="nav-item"><a class="nav-link active" href="{% url 'guests:guests_list' %}">Back to Registry</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">Reservations</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'reservations:reservations_list' %}">Reservations</a></li>
             </ul>
         </div>
     </div>
@@ -32,24 +32,24 @@
             <nav aria-label="breadcrumb" class="mb-4">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{% url 'guests:guests_list' %}" class="text-decoration-none">Guests</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">New Registration</li>
+                    <li class="breadcrumb-item active" aria-current="page">Edit Profile</li>
                 </ol>
             </nav>
 
-            <!-- Registration Card -->
+            <!-- Edit Card -->
             <div class="card shadow-sm border-0">
-                <div class="card-header bg-success text-white py-3">
+                <div class="card-header bg-warning text-dark py-3">
                     <div class="d-flex align-items-center">
-                        <span class="fs-4 me-2">👤➕</span>
+                        <span class="fs-4 me-2">📝</span>
                         <div>
-                            <h5 class="fw-bold mb-0">Register New Guest</h5>
-                            <small class="opacity-75">Add a new customer account to the database</small>
+                            <h5 class="fw-bold mb-0">Modify Guest Account</h5>
+                            <small class="opacity-75">Updating profile for system ID: #{{ guest.guest_id }}</small>
                         </div>
                     </div>
                 </div>
                 
                 <div class="card-body p-4">
-                    <!-- Form submits a secure POST request to the add_guest view -->
+                    <!-- Form submits a secure POST request to the current URL handling the FBV -->
                     <form method="POST">
                         {% csrf_token %}
                         
@@ -63,7 +63,8 @@
                                     class="form-control" 
                                     id="name" 
                                     name="name" 
-                                    placeholder="e.g. Omar Ahmed"
+                                    value="{{ guest.name }}" 
+                                    placeholder="e.g. John Doe"
                                     required
                                 >
                             </div>
@@ -79,12 +80,13 @@
                                     class="form-control" 
                                     id="email" 
                                     name="email" 
-                                    placeholder="example@email.com"
+                                    value="{{ guest.email }}" 
+                                    placeholder="name@example.com"
                                     required
                                 >
                             </div>
                             <div class="form-text text-muted small">
-                                The system tracks individual ticket history based on this unique identifier.
+                                Ensure this email is unique; duplicate customer accounts are protected by the database layer.
                             </div>
                         </div>
 
@@ -92,12 +94,12 @@
 
                         <!-- Action Controls -->
                         <div class="d-flex gap-2 justify-content-end">
-                            <!-- Canceling sends the operator safely back to the full registry list -->
+                            <!-- Canceling sends the operator safely back to the full list -->
                             <a href="{% url 'guests:guests_list' %}" class="btn btn-outline-secondary px-4">
                                 Cancel
                             </a>
-                            <button type="submit" class="btn btn-success fw-semibold px-4">
-                                Save Profile
+                            <button type="submit" class="btn btn-warning fw-semibold px-4">
+                                Save Changes
                             </button>
                         </div>
                     </form>

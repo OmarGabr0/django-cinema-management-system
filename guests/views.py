@@ -3,11 +3,9 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 
-# New Core Imports for CBV, Mixins, and Generics
 from rest_framework.views import APIView
 from rest_framework import generics, mixins
 
-from Movies.models import Movie
 from guests.models import Guest
 from guests.serializers import GuestSerializer
 

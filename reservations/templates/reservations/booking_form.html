@@ -1,54 +1,197 @@
-{% extends 'base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Reservation - CinemaCMS</title>
 
-{% block title %}Book a Ticket - Cinema Management{% block title %}
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+          rel="stylesheet">
 
-{% block content %}
-<div class="row justify-content-center">
-    <div class="col-md-8 col-lg-6">
-        <div class="card shadow-sm border-0 mt-4">
-            <div class="card-body p-4 p-md-5">
-                <div class="mb-4">
-                    <h3 class="fw-bold text-dark mb-1">Create Reservation</h3>
-                    <p class="text-muted small">Link an existing guest profile to a scheduled film screening.</p>
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+</head>
+
+<body class="bg-light">
+
+<!-- Navigation Bar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+
+    <div class="container">
+
+        <a class="navbar-brand" href="{% url 'home' %}">
+            🎬 CinemaCMS
+        </a>
+
+        <div class="collapse navbar-collapse">
+
+            <ul class="navbar-nav ms-auto">
+
+                <li class="nav-item">
+                    <a class="nav-link"
+                       href="{% url 'movies:movies_list' %}">
+                        Movies
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link"
+                       href="{% url 'guests:guests_list' %}">
+                        Guests
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link active"
+                       href="{% url 'reservations:reservations_list' %}">
+                        Reservations
+                    </a>
+                </li>
+
+            </ul>
+
+        </div>
+
+    </div>
+
+</nav>
+
+<!-- Main Content -->
+<div class="container mt-5">
+
+    <div class="row justify-content-center">
+
+        <div class="col-md-8 col-lg-6">
+
+            <div class="card shadow-sm border-0">
+
+                <div class="card-body p-4 p-md-5">
+
+                    <!-- Header -->
+                    <div class="mb-4">
+
+                        <h2 class="fw-bold">
+                            🎟 Book New Reservation
+                        </h2>
+
+                        <p class="text-muted mb-0">
+                            Assign a guest to a movie screening
+                        </p>
+
+                    </div>
+
+                    <!-- Reservation Form -->
+                    <form method="POST"
+                          action="{% url 'reservations:book_reservation' %}">
+
+                        {% csrf_token %}
+
+                        <!-- Guest Selection -->
+                        <div class="mb-3">
+
+                            <label for="guest"
+                                   class="form-label fw-semibold">
+
+                                Select Guest
+
+                            </label>
+
+                            <select class="form-select"
+                                    id="guest"
+                                    name="guest"
+                                    required>
+
+                                <option value="" disabled selected>
+                                    -- Choose a Guest --
+                                </option>
+
+                                {% for guest in guests %}
+
+                                <option value="{{ guest.guest_id }}">
+
+                                    {{ guest.name }}
+                                    ({{ guest.email }})
+
+                                </option>
+
+                                {% endfor %}
+
+                            </select>
+
+                        </div>
+
+                        <!-- Movie Selection -->
+                        <div class="mb-4">
+
+                            <label for="movie"
+                                   class="form-label fw-semibold">
+
+                                Select Movie
+
+                            </label>
+
+                            <select class="form-select"
+                                    id="movie"
+                                    name="movie"
+                                    required>
+
+                                <option value="" disabled selected>
+                                    -- Choose a Movie --
+                                </option>
+
+                                {% for movie in movies %}
+
+                                <option value="{{ movie.movie_id }}">
+
+                                    {{ movie.name }}
+                                    —
+                                    Hall {{ movie.hall_number }}
+                                    (${{ movie.reservation_price }})
+
+                                </option>
+
+                                {% endfor %}
+
+                            </select>
+
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div class="d-flex justify-content-end gap-2">
+
+                            <a href="{% url 'reservations:reservations_list' %}"
+                               class="btn btn-secondary">
+
+                                Cancel
+
+                            </a>
+
+                            <button type="submit"
+                                    class="btn btn-primary">
+
+                                <i class="bi bi-ticket-perforated"></i>
+                                Confirm Booking
+
+                            </button>
+
+                        </div>
+
+                    </form>
+
                 </div>
 
-                <form method="POST" action="{% url 'reservations:book_reservation' %}">
-                    {% csrf_token %}
-                    
-                    <!-- Guest Selection Dropdown -->
-                    <div class="mb-3">
-                        <label for="guest" class="form-label fw-semibold text-secondary">Select Guest</label>
-                        <select class="form-select border-2" id="guest" name="guest" required>
-                            <option value="" disabled selected>-- Choose a Guest --</option>
-                            {% for guest in guests %}
-                                <option value="{{ guest.guest_id }}">
-                                    {{ guest.name }} ({{ guest.email }})
-                                </option>
-                            {% endfor %}
-                        </select>
-                    </div>
-
-                    <!-- Movie Selection Dropdown -->
-                    <div class="mb-4">
-                        <label for="movie" class="form-label fw-semibold text-secondary">Select Movie Screening</label>
-                        <select class="form-select border-2" id="movie" name="movie" required>
-                            <option value="" disabled selected>-- Choose a Movie --</option>
-                            {% for movie in movies %}
-                                <option value="{{ movie.id }}">
-                                    {{ movie.name }} — Hall {{ movie.hall_number }} (${{ movie.reservation_price }})
-                                </option>
-                            {% endfor %}
-                        </select>
-                    </div>
-
-                    <!-- Action Buttons -->
-                    <div class="d-flex gap-2 justify-content-end">
-                        <a href="{% url 'reservations:reservations_list' %}" class="btn btn-light px-4">Cancel</a>
-                        <button type="submit" class="btn btn-primary px-4">Confirm Booking</button>
-                    </div>
-                </form>
             </div>
+
         </div>
+
     </div>
+
 </div>
-{% endblock %}
+
+<!-- Bootstrap 5 JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

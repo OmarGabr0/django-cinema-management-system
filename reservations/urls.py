@@ -6,6 +6,7 @@ app_name = 'reservations'
 urlpatterns = [
     # Web UI Interfaces
     path('', views.list_reservations, name='reservations_list'),
+    path('list/', views.list_reservations, name='reservations_list'),
     path('book/', views.book_reservation, name='book_reservation'),
     path('cancel/<int:id>/', views.cancel_reservation, name='cancel_reservation'),
 

@@ -16,8 +16,8 @@
         <div class="collapse navbar-collapse">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item"><a class="nav-link active" href="{% url 'movies:movies_list' %}">Movies</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">Guests</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">Reservations</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'guests:guests_list' %}">Guests</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'reservations:reservations_list' %}">Reservations</a></li>
             </ul>
         </div>
     </div>
@@ -30,7 +30,7 @@
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h2 class="fw-bold">🎥 Movie Catalog</h2>
         <!-- Button to go to the "Add Movie" page (URL to be created later) -->
-        <a href="#" class="btn btn-primary">+ Add New Movie</a>
+        <a href="{% url 'movies:add_movie' %}" class="btn btn-primary">+ Add New Movie</a>
     </div>
 
     <!-- Movie Table -->

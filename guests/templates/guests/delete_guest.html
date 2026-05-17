@@ -15,9 +15,9 @@
         <a class="navbar-brand" href="{% url 'home' %}">🎬 CinemaCMS</a>
         <div class="collapse navbar-collapse">
             <ul class="navbar-nav ms-auto">
-                <li class="nav-item"><a class="nav-link" href="#">Movies</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'movies:movies_list' %}">Movies</a></li>
                 <li class="nav-item"><a class="nav-link active" href="{% url 'guests:guests_list' %}">Back to Registry</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">Reservations</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'reservations:reservations_list' %}">Reservations</a></li>
             </ul>
         </div>
     </div>
